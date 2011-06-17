@@ -1,0 +1,33 @@
+<html>
+	<head>
+		
+		<!-- If you do not have it in your theme already, add the following
+			 line in the head section of your theme to fetch jQuery -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		
+	</head>
+	<body>
+		
+		<!-- Add the following snippet of code, before the closing body 
+			 tag in your theme -->
+		<script type="text/javascript" charset="utf-8">
+			$('.html_photoset').each(function() {
+				var tumblr_post_id = $(this).attr('id').split('_')[1];
+				$(this).empty();
+				var this_photoset = this;
+				$.getJSON('/api/read/json?id='+ tumblr_post_id +'&callback=?', function(response){
+					var photos = response['posts'][0]['photos'];
+					var photoset_caption = response['posts'][0]['photo-caption'];
+					$(this_photoset).append('<div class="photoset-caption">'+photoset_caption+'</div>');
+					$.each(photos, function() {
+						var photo_url = this['photo-url-1280'];
+						var photo_caption = this['caption'];
+						var photo_markup = '<div class="post photo"><img src="'+ photo_url +'"/><div class="caption"><p>'+ photo_caption +'</p></div></div>';
+						$(this_photoset).append(photo_markup);
+					});
+				});
+			});
+		</script>
+		
+	</body>
+</html>
