@@ -11,6 +11,19 @@
 		<!-- Add the following snippet of code, before the closing body 
 			 tag in your theme -->
 		<script type="text/javascript" charset="utf-8">
+			
+			/*			
+				Go over each photosets on the current page, get the tumblr 
+				post ID, remove the photoset from the DOM, make a call to Tumblr's 
+				API and get the photos and captions, inject them one by one into 
+				the page.
+
+				This code uses the largest size images, 1280px horizontal resolution 
+				but you can use smaller ones if you like, see the Tumblr API docs 
+				for available options
+				http://www.tumblr.com/docs/en/api#api_read
+			*/
+		
 			$('.html_photoset').each(function() {
 				var tumblr_post_id = $(this).attr('id').split('_')[1];
 				$(this).empty();
